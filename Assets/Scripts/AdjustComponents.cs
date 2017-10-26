@@ -21,17 +21,19 @@ public class AdjustComponents : MonoBehaviour {
         widthLeft = Screen.width;
 	}
 	
-	// Update is called once per frame
+	//For testing purposes
 	void Update () {
-		if (Input.GetKey(KeyCode.A))
+#if UNITY_EDITOR
+        if (Input.GetKey(KeyCode.A))
         {
             AdjustContainerAndChildren();
         }
-	}
+#endif
+    }
 
     public void AdjustContainerAndChildren()
     {
-        ///We assume that everything in the collectedObjects is adjusted
+        ///We assume that everything in the collectedObjects is adjusted in the view rect
         for (int index = collectedObjects.Count; index<transform.childCount; ++index) /// Repeat for all new elements
         {
             RectTransform childRT = transform.GetChild(index).GetComponent<RectTransform>();
@@ -44,7 +46,7 @@ public class AdjustComponents : MonoBehaviour {
             if (widthLeft > 2 * bufferSpace.x + childRT.sizeDelta.x) ///Can i place another element?
             {
                 RectTransform previousRT;
-                previousRT = (index > 0 ? collectedObjects[index - 1].GetComponent<RectTransform>() : childRT);
+                previousRT = (index > 0 ? collectedObjects[index - 1].GetComponent<RectTransform>() : childRT); ///if first element use self as reference
                 
                 if (widthLeft == Screen.width) ///First element on row
                 {
@@ -65,7 +67,7 @@ public class AdjustComponents : MonoBehaviour {
 
                 collectedObjects.Add(childRT);
                 elementsInRow.Add(childRT);
-            }else
+            }else ///Move to new line
             {
                 AlignElementsOnLine();
                 elementsInRow.Clear();
