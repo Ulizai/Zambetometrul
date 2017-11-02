@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 222131068508799074}
   - component: {fileID: 114479371049721424}
   m_Layer: 5
-  m_Name: Scroll View
+  m_Name: AdjustableScrollViewExample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
